@@ -1,6 +1,9 @@
 from pymongo import MongoClient
 from bson import ObjectId
 from app.models import Task  # Importe seu modelo Task (Pydantic)
+from typing import Any
+from pydantic import BaseModel
+
 
 # Conectar ao MongoDB
 client = MongoClient("mongodb://localhost:27017/")
@@ -15,11 +18,14 @@ def str_objectid(obj):
     raise ValueError("ObjectId expected")
 
 # Função para inserir uma tarefa
-def insert_task(task: Task):
-    task_data = task.dict()  # Converte o modelo Pydantic para um dicionário
+def insert_task(task: Any):
+    # Se for um modelo Pydantic, converte; caso contrário, assume que é um dicionário
+    task_data = task.dict() if isinstance(task, BaseModel) else task
     result = db.tasks.insert_one(task_data)  # Insere a tarefa no MongoDB
     task_data["id"] = str(result.inserted_id)  # Adiciona o ID gerado pelo MongoDB
     return task_data
+
+    
 
 # Função para listar todas as tarefas
 def get_tasks():
