@@ -15,8 +15,11 @@ def str_objectid(obj):
     raise ValueError("ObjectId expected")
 
 # Função para inserir uma tarefa
-def insert_task(task):
-    db.tasks.insert_one(task)
+def insert_task(task: Task):
+    task_data = task.dict()  # Converte o modelo Pydantic para um dicionário
+    result = db.tasks.insert_one(task_data)  # Insere a tarefa no MongoDB
+    task_data["id"] = str(result.inserted_id)  # Adiciona o ID gerado pelo MongoDB
+    return task_data
 
 # Função para listar todas as tarefas
 def get_tasks():
@@ -47,4 +50,3 @@ def update_task(task_id: str, updates: dict):
 def delete_task(task_id: str):
     object_id = ObjectId(task_id)  # Converte o task_id para ObjectId
     db.tasks.delete_one({"_id": object_id})  # Deleta a tarefa pelo _id
-
