@@ -1,15 +1,24 @@
-1. Linguagem e Frameworks
-•	Linguagem: Python
-•	Framework Backend: FastAPI
-2. Banco de Dados
-•	Banco Principal: MongoDB
-o	Biblioteca de Conexão: ODMantic (para facilitar o trabalho com modelos e validação).
-o	Motivo: Simplicidade no gerenciamento de dados no formato JSON-like e integração rápida com FastAPI.
-•	Cache: Redis (para autenticação e otimização de acessos a dados).
-o	Biblioteca: aioredis
-o	Motivo: Requisito do case e utilidade prática para cache de sessões e autenticação JWT.
-3. Autenticação e Autorização
-•	Autenticação: JWT (JSON Web Tokens)
-o	Biblioteca: PyJWT ou fastapi-jwt-auth.
-o	Motivo: Seguro, fácil de usar e amplamente aceito no mercado.
-•	Hash de Senhas: passlib (para gerar e verificar senhas).
+# Task Management API
+
+Este projeto é uma API de gerenciamento de tarefas construída com **FastAPI**, oferecendo endpoints para autenticação, gerenciamento de tarefas e cache com Redis. O sistema utiliza MongoDB para persistência de dados.
+
+## Funcionalidades
+
+- **Gerenciamento de Tarefas**
+  - Adicionar uma nova tarefa.
+  - Listar todas as tarefas.
+  - Atualizar tarefas existentes.
+  - Excluir tarefas.
+- **Autenticação**
+  - Login com geração de tokens JWT.
+  - Verificação de token para endpoints protegidos.
+  - Logout com revogação de tokens.
+- **Cache**
+  - Integração com Redis para armazenamento temporário de tarefas.
+
+## Pré-requisitos
+
+- Python 3.10 ou superior
+- MongoDB configurado e rodando
+- Redis configurado e rodando
+
